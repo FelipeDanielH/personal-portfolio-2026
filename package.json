@@ -1,0 +1,51 @@
+{
+  "name": "felipe-henriquez-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.8.0",
+  "engines": {
+    "node": "24.x"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint . --max-warnings=0",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "quality": "eslint . --max-warnings=0 && tsc --noEmit && vitest run && next build",
+    "sanity:extract": "sanity schema extract --force --path=./src/sanity/extract.json",
+    "sanity:typegen": "sanity schema extract --force --path=./src/sanity/extract.json && sanity typegen generate",
+    "sanity:seed": "sanity exec scripts/seed.ts --with-user-token"
+  },
+  "dependencies": {
+    "@sanity/client": "7.26.2",
+    "@sanity/image-url": "2.1.1",
+    "@sanity/visual-editing": "5.7.3",
+    "lucide-react": "1.28.0",
+    "next": "16.2.9",
+    "next-sanity": "13.3.1",
+    "next-themes": "0.4.6",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "resend": "6.18.1",
+    "sanity": "6.9.0",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.62.1",
+    "@tailwindcss/postcss": "4.3.3",
+    "@types/node": "24.10.10",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.4",
+    "eslint": "9.39.1",
+    "eslint-config-next": "16.2.9",
+    "jsdom": "30.0.1",
+    "tailwindcss": "4.3.3",
+    "typescript": "5.9.3",
+    "vitest": "4.1.10"
+  }
+}

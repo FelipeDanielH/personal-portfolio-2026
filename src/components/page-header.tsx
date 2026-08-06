@@ -1,0 +1,14 @@
+import type { ReactNode } from "react";
+
+export function PageHeader({ eyebrow, title, description, aside }: { eyebrow: string; title: string; description: string; aside?: ReactNode }) {
+  return (
+    <header className="page-hero shell">
+      <div className="page-hero-copy">
+        <p className="eyebrow">{eyebrow}</p>
+        <h1>{title}</h1>
+        <p className="page-intro">{description}</p>
+      </div>
+      {aside ? <div className="page-hero-aside">{aside}</div> : null}
+    </header>
+  );
+}

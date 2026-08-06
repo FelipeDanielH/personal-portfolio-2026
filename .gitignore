@@ -1,0 +1,27 @@
+# dependencies
+node_modules/
+
+# Next.js
+.next/
+out/
+
+# testing
+coverage/
+playwright-report/
+test-results/
+
+# local configuration
+.env*
+!.env.example
+.vercel/
+
+# Sanity generated artifacts
+src/sanity/extract.json
+
+# reference repository (kept locally, never committed)
+referencia-visual/
+
+# operating systems and editors
+.DS_Store
+Thumbs.db
+*.tsbuildinfo

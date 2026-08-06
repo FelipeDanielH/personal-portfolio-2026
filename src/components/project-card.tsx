@@ -5,7 +5,7 @@ import { TagList } from "./tag-list";
 
 export function ProjectCard({ project, compact = false }: { project: Project; compact?: boolean }) {
   return (
-    <article className="project-card glass-panel" id={`proyecto-${project.id}`}>
+    <article className={`project-card glass-panel${compact ? " project-card-compact" : ""}`} id={`proyecto-${project.id}`}>
       <div className="project-visual">
         {project.image ? (
           <Image

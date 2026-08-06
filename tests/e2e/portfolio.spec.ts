@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 const routes = [
-  ["/", "Código claro"],
+  ["/", "Desarrollador Full Stack"],
   ["/sobre-mi", "Curiosidad técnica"],
   ["/habilidades", "Capacidad aplicada"],
   ["/experiencia", "Tecnología dentro"],

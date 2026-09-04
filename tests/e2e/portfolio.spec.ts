@@ -31,10 +31,30 @@ test("el tema se puede cambiar sin perder la preferencia", async ({ page }) => {
 
 test("los filtros de proyectos actualizan el catálogo", async ({ page }) => {
   await page.goto("/proyectos");
+  await page.waitForLoadState("networkidle");
   await page.getByRole("group", { name: "Lenguaje" }).getByRole("button", { name: "Java", exact: true }).click();
   await expect(page.getByText(/3 de 4 proyectos/)).toBeVisible();
   await page.getByRole("button", { name: "Limpiar" }).click();
   await expect(page.getByText(/4 de 4 proyectos/)).toBeVisible();
+});
+
+test("la landing expone JSON-LD y el footer alimentados por el contenido publicado", async ({ page, isMobile }) => {
+  await page.goto("/");
+  const jsonLd = JSON.parse(await page.locator('script[type="application/ld+json"]').textContent() ?? "{}") as {
+    name?: string;
+    knowsAbout?: string[];
+  };
+
+  expect(jsonLd.name).toBe("Felipe Henríquez");
+  expect(jsonLd.knowsAbout).toContain("TypeScript");
+  await expect(page.locator("footer")).toContainText("felipe.daniel.henriquez@gmail.com");
+  await expect(page.locator("footer")).toContainText("Next.js · TypeScript · Payload");
+  if (isMobile) {
+    await page.getByRole("button", { name: "Abrir menú" }).click();
+    await expect(page.getByRole("navigation", { name: "Navegación móvil" })).toContainText("Proyectos");
+  } else {
+    await expect(page.getByRole("navigation", { name: "Navegación principal" })).toContainText("Proyectos");
+  }
 });
 
 test("el formulario comunica éxito y es operable con teclado", async ({ page }) => {
@@ -55,6 +75,7 @@ test("el formulario comunica éxito y es operable con teclado", async ({ page })
 test("la navegación móvil abre, navega y cierra", async ({ page, isMobile }) => {
   test.skip(!isMobile, "Comportamiento específico del viewport móvil");
   await page.goto("/");
+  await page.waitForLoadState("networkidle");
   await page.getByRole("button", { name: "Abrir menú" }).click();
   await page.getByRole("navigation", { name: "Navegación móvil" }).getByRole("link", { name: "Experiencia" }).click();
   await expect(page).toHaveURL(/\/experiencia$/);

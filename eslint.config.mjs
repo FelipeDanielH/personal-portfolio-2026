@@ -7,9 +7,11 @@ export default defineConfig([
   ...nextTypeScript,
   globalIgnores([
     ".next/**",
+    ".pnpm-store/**",
     "out/**",
     "coverage/**",
     "playwright-report/**",
+    "migrations/**",
     "referencia-visual/**",
     "src/sanity/sanity.types.ts",
   ]),

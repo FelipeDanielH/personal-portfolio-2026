@@ -17,7 +17,7 @@ export function SiteFooter({ settings }: { settings: SiteSettings }) {
       </div>
       <div className="shell footer-bottom">
         <span>© {settings.name}</span>
-        <span>Next.js · TypeScript · Sanity</span>
+        <span>Next.js · TypeScript · Payload</span>
       </div>
     </footer>
   );

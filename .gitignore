@@ -1,5 +1,6 @@
 # dependencies
 node_modules/
+.pnpm-store/
 
 # Next.js
 .next/
@@ -14,6 +15,9 @@ test-results/
 .env*
 !.env.example
 .vercel/
+
+# Payload local uploads (R2 will replace this in a later phase)
+media/
 
 # Sanity generated artifacts
 src/sanity/extract.json

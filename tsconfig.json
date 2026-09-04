@@ -6,7 +6,7 @@
       "dom.iterable",
       "es2023"
     ],
-    "allowJs": false,
+    "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
     "noUncheckedIndexedAccess": true,
@@ -27,6 +27,9 @@
     "paths": {
       "@/*": [
         "./src/*"
+      ],
+      "@payload-config": [
+        "./payload.config.ts"
       ]
     }
   },
@@ -39,6 +42,7 @@
   ],
   "exclude": [
     "node_modules",
+    ".pnpm-store",
     "referencia-visual"
   ]
 }

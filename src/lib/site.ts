@@ -7,4 +7,5 @@ export const publicRoutes = [
   "/experiencia",
   "/proyectos",
   "/formacion",
+  "/blog",
 ] as const;

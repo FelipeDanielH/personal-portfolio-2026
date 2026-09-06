@@ -6,7 +6,7 @@ import { getPortfolioContent } from "@/content/data";
 
 export const metadata: Metadata = {
   title: "Sobre mí",
-  description: "Historia, objetivos y filosofía de trabajo de Felipe Henríquez.",
+  description: "Historia, objetivos y filosofía de trabajo.",
   alternates: { canonical: "/sobre-mi" },
 };
 

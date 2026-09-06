@@ -3,14 +3,16 @@ import { Credentials } from "./collections/Credentials";
 import { Experiences } from "./collections/Experiences";
 import { Media } from "./collections/Media";
 import { Projects } from "./collections/Projects";
+import { Posts } from "./collections/Posts";
 import { SkillCategories } from "./collections/SkillCategories";
 import { Users } from "./collections/Users";
-import { SiteSettings } from "./globals/SiteSettings";
+import { publishedOrAuthenticated } from "./access/published-or-authenticated";
+import { denyAnonymousSiteSettingsDraftRead, SiteSettings } from "./globals/SiteSettings";
 import { validateUniqueAboutAnchors } from "./fields/unique-about-anchor";
 
 describe("Payload portfolio schema", () => {
-  it("models every existing Sanity content area without adding blog scope", () => {
-    const collectionSlugs = [Users, Media, SkillCategories, Experiences, Projects, Credentials].map(
+  it("models the portfolio and Markdown posts without a separate tags collection", () => {
+    const collectionSlugs = [Users, Media, SkillCategories, Experiences, Projects, Credentials, Posts].map(
       ({ slug }) => slug,
     );
 
@@ -21,8 +23,8 @@ describe("Payload portfolio schema", () => {
       "experiences",
       "projects",
       "credentials",
+      "posts",
     ]);
-    expect(collectionSlugs).not.toContain("posts");
     expect(collectionSlugs).not.toContain("tags");
     expect(SiteSettings.slug).toBe("site-settings");
   });
@@ -35,6 +37,23 @@ describe("Payload portfolio schema", () => {
     expect(SiteSettings.versions).toMatchObject({ drafts: true, max: 5 });
     expect(Users.versions).toBeUndefined();
     expect(Media.versions).toBeUndefined();
+  });
+
+  it("uses published-only read access for anonymous Site Settings requests", () => {
+    expect(SiteSettings.access?.read).toBe(publishedOrAuthenticated);
+  });
+
+  it("rejects anonymous Site Settings draft reads before Payload can replace the published document", () => {
+    expect(() => denyAnonymousSiteSettingsDraftRead({
+      args: { draft: true },
+      operation: "read",
+      req: { user: null, t: undefined },
+    } as never)).toThrow();
+    expect(denyAnonymousSiteSettingsDraftRead({
+      args: { draft: true },
+      operation: "read",
+      req: { user: { id: 1 }, t: undefined },
+    } as never)).toEqual({ draft: true });
   });
 
   it("stores Media remotely and keeps the existing image derivatives", () => {
@@ -66,6 +85,16 @@ describe("Payload portfolio schema", () => {
       const keyField = collection.fields.find((field) => "name" in field && field.name === "key");
       expect(keyField).toMatchObject({ type: "text", required: true, unique: true, index: true });
     }
+  });
+
+  it("keeps Posts as Markdown with unique slugs and limited native drafts", () => {
+    const field = (name: string) => Posts.fields.find((entry) => "name" in entry && entry.name === name);
+    expect(field("slug")).toMatchObject({ type: "text", required: true, unique: true, index: true });
+    expect(field("contentMarkdown")).toMatchObject({ type: "textarea", required: true });
+    expect(field("tags")).toMatchObject({ type: "text", hasMany: true });
+    expect(field("featuredImage")).toMatchObject({ type: "upload", relationTo: "media" });
+    expect(field("_status")).toBeUndefined();
+    expect(Posts.versions).toMatchObject({ drafts: { autosave: { interval: 15000 } }, maxPerDoc: 10 });
   });
 
   it("rejects duplicate about section anchors", () => {

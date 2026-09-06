@@ -5,40 +5,17 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { ThemeProvider } from "@/components/theme-provider";
 import { getPortfolioContent } from "@/content/data";
+import { websiteMetadata } from "@/content/site-metadata";
 import { siteUrl } from "@/lib/site";
 import "../globals.css";
 
 const geistSans = Geist({ subsets: ["latin"], variable: "--font-geist-sans", display: "swap" });
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono", display: "swap" });
 
-export const metadata: Metadata = {
-  metadataBase: siteUrl,
-  title: {
-    default: "Felipe Henríquez · Desarrollador Full Stack",
-    template: "%s · Felipe Henríquez",
-  },
-  description:
-    "Portafolio de Felipe Henríquez, ingeniero en informática y desarrollador full stack especializado en React, Node.js y Spring Boot.",
-  applicationName: "Portafolio de Felipe Henríquez",
-  authors: [{ name: "Felipe Henríquez" }],
-  creator: "Felipe Henríquez",
-  alternates: { canonical: "/" },
-  openGraph: {
-    type: "website",
-    locale: "es_CL",
-    url: "/",
-    siteName: "Felipe Henríquez",
-    title: "Felipe Henríquez · Desarrollador Full Stack",
-    description: "Código claro. Productos que avanzan.",
-    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Felipe Henríquez, Desarrollador Full Stack" }],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Felipe Henríquez · Desarrollador Full Stack",
-    description: "Código claro. Productos que avanzan.",
-    images: ["/og.png"],
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { settings } = await getPortfolioContent();
+  return { metadataBase: siteUrl, ...websiteMetadata(settings) };
+}
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -58,7 +35,7 @@ export default async function WebsiteLayout({ children }: { children: ReactNode 
       <body id="top">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <a className="skip-link" href="#main-content">Saltar al contenido</a>
-          <SiteHeader />
+          <SiteHeader name={settings.name} />
           {children}
           <a className="back-to-top" href="#top" aria-label="Volver arriba">↑</a>
           <SiteFooter settings={settings} />

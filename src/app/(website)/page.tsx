@@ -17,6 +17,7 @@ import { TagList } from "@/components/tag-list";
 import { getPortfolioContent } from "@/content/data";
 import { selectFeatured } from "@/content/selectors";
 import { ContactForm } from "@/features/contact/contact-form";
+import { siteUrl } from "@/lib/site";
 
 export const metadata: Metadata = { alternates: { canonical: "/" } };
 
@@ -37,7 +38,7 @@ export default async function HomePage() {
     jobTitle: settings.role,
     email: `mailto:${settings.email}`,
     address: { "@type": "PostalAddress", addressLocality: settings.location },
-    url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+    url: siteUrl.href,
     sameAs: settings.socialLinks.map((link) => link.url),
     knowsAbout: featured.skills,
   }).replaceAll("<", "\\u003c");
@@ -229,7 +230,7 @@ export default async function HomePage() {
                 <p>Cuéntame el contexto. Respondo con honestidad sobre cómo puedo aportar y cuál sería el siguiente paso.</p>
                 <div className="landing-contact-meta">
                   <span><MapPin aria-hidden="true" /> {settings.location}</span>
-                  <span><BriefcaseBusiness aria-hidden="true" /> Full stack · Producto · Cloud</span>
+                  <span><BriefcaseBusiness aria-hidden="true" /> {settings.role}</span>
                 </div>
               </div>
             </div>

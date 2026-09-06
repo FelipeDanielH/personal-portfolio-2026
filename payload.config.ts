@@ -9,6 +9,7 @@ import { Credentials } from "./src/payload/collections/Credentials";
 import { Experiences } from "./src/payload/collections/Experiences";
 import { Media } from "./src/payload/collections/Media";
 import { Projects } from "./src/payload/collections/Projects";
+import { Posts } from "./src/payload/collections/Posts";
 import { SkillCategories } from "./src/payload/collections/SkillCategories";
 import { Users } from "./src/payload/collections/Users";
 import { SiteSettings } from "./src/payload/globals/SiteSettings";
@@ -30,7 +31,7 @@ export default buildConfig({
       titleSuffix: " · Felipe Henríquez",
     },
   },
-  collections: [Users, Media, SkillCategories, Experiences, Projects, Credentials],
+  collections: [Users, Media, SkillCategories, Experiences, Projects, Credentials, Posts],
   globals: [SiteSettings],
   db: postgresAdapter({
     migrationDir: path.resolve(dirname, "migrations"),

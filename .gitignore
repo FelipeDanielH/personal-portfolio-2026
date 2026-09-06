@@ -16,11 +16,8 @@ test-results/
 !.env.example
 .vercel/
 
-# Payload local uploads (R2 will replace this in a later phase)
+# Payload local uploads
 media/
-
-# Sanity generated artifacts
-src/sanity/extract.json
 
 # reference repository (kept locally, never committed)
 referencia-visual/
@@ -29,3 +26,6 @@ referencia-visual/
 .DS_Store
 Thumbs.db
 *.tsbuildinfo
+
+#IA Slop
+AGENTS.md

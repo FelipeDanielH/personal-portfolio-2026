@@ -7,7 +7,7 @@ import { getPortfolioContent } from "@/content/data";
 
 export const metadata: Metadata = {
   title: "Formación",
-  description: "Formación académica y certificaciones profesionales de Felipe Henríquez.",
+  description: "Formación académica y certificaciones profesionales.",
   alternates: { canonical: "/formacion" },
 };
 

@@ -13,6 +13,5 @@ export default defineConfig([
     "playwright-report/**",
     "migrations/**",
     "referencia-visual/**",
-    "src/sanity/sanity.types.ts",
   ]),
 ]);

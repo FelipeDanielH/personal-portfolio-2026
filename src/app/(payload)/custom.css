@@ -1,1 +1,3 @@
 /* Payload owns the admin design system. Portfolio globals are intentionally not loaded here. */
+.markdown-field textarea { width: 100%; min-height: 24rem; resize: vertical; font-family: monospace; line-height: 1.6; }
+.markdown-field > p { color: var(--theme-elevation-600); }

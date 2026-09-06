@@ -1,8 +1,17 @@
-import type { GlobalConfig } from "payload";
+import { NotFound, type GlobalBeforeOperationHook, type GlobalConfig } from "payload";
 import { authenticated } from "../access/authenticated";
+import { publishedOrAuthenticated } from "../access/published-or-authenticated";
 import { externalLinksField } from "../fields/external-link";
 import { stringListField } from "../fields/string-list";
 import { validateUniqueAboutAnchors } from "../fields/unique-about-anchor";
+
+export const denyAnonymousSiteSettingsDraftRead: GlobalBeforeOperationHook = ({ args, operation, req }) => {
+  if (operation === "read" && args?.draft === true && !req.user) {
+    throw new NotFound(req.t);
+  }
+
+  return args;
+};
 
 export const SiteSettings: GlobalConfig = {
   slug: "site-settings",
@@ -11,8 +20,11 @@ export const SiteSettings: GlobalConfig = {
     group: "Portafolio",
   },
   access: {
-    read: () => true,
+    read: publishedOrAuthenticated,
     update: authenticated,
+  },
+  hooks: {
+    beforeOperation: [denyAnonymousSiteSettingsDraftRead],
   },
   versions: {
     drafts: true,

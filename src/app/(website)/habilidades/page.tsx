@@ -6,7 +6,7 @@ import { getPortfolioContent } from "@/content/data";
 
 export const metadata: Metadata = {
   title: "Habilidades",
-  description: "Habilidades técnicas y prácticas de desarrollo full stack de Felipe Henríquez.",
+  description: "Habilidades técnicas y prácticas de desarrollo full stack.",
   alternates: { canonical: "/habilidades" },
 };
 

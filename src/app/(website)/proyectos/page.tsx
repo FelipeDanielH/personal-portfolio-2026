@@ -6,7 +6,7 @@ import { ProjectExplorer } from "@/features/projects/project-explorer";
 
 export const metadata: Metadata = {
   title: "Proyectos",
-  description: "Proyectos full stack de Felipe Henríquez construidos con React, Spring Boot, Node.js y bases de datos.",
+  description: "Proyectos full stack construidos con React, Spring Boot, Node.js y bases de datos.",
   alternates: { canonical: "/proyectos" },
 };
 

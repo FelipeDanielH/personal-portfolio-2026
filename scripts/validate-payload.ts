@@ -123,7 +123,7 @@ async function validate() {
         {
           anchor: "validation",
           title: "Validación",
-          body: [{ value: "Payload conserva la estructura equivalente a Sanity." }],
+          body: [{ value: "Payload conserva la estructura esperada del portafolio." }],
         },
       ],
       seo: { title: "Validación Payload", description: "Configuración temporal para validar Payload y Neon." },

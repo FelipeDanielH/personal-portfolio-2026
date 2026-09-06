@@ -7,7 +7,7 @@ import { getPortfolioContent } from "@/content/data";
 
 export const metadata: Metadata = {
   title: "Experiencia",
-  description: "Experiencia profesional de Felipe Henríquez en desarrollo web, e-commerce y soporte técnico.",
+  description: "Experiencia profesional en desarrollo web, e-commerce y soporte técnico.",
   alternates: { canonical: "/experiencia" },
 };
 

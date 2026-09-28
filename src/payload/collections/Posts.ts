@@ -2,6 +2,7 @@ import type { CollectionBeforeChangeHook, CollectionConfig } from "payload";
 import { normalizeTags, slugFromTitle } from "../../features/blog/editorial";
 import { authenticated } from "../access/authenticated";
 import { publishedOrAuthenticated } from "../access/published-or-authenticated";
+import { invalidatePostAfterChange, invalidatePostAfterDelete } from "../blog/cache-invalidation";
 
 export const setFirstPublishedAt: CollectionBeforeChangeHook = ({ data, originalDoc }) => {
   if (originalDoc?.publishedAt) data.publishedAt = originalDoc.publishedAt;
@@ -16,7 +17,11 @@ export const Posts: CollectionConfig = {
   access: { create: authenticated, update: authenticated, delete: authenticated, read: publishedOrAuthenticated },
   versions: { drafts: { autosave: { interval: 15000 } }, maxPerDoc: 10 },
   defaultSort: "-publishedAt",
-  hooks: { beforeChange: [setFirstPublishedAt] },
+  hooks: {
+    beforeChange: [setFirstPublishedAt],
+    afterChange: [invalidatePostAfterChange],
+    afterDelete: [invalidatePostAfterDelete],
+  },
   fields: [
     { name: "title", type: "text", label: "Título", required: true, maxLength: 180 },
     {

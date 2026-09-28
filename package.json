@@ -31,7 +31,12 @@
     "preview:migrate:status": "node scripts/run-preview.mjs payload migrate:status",
     "preview:migrate": "node scripts/run-preview.mjs payload migrate",
     "preview:seed": "node scripts/run-preview.mjs payload run scripts/seed-payload.ts",
-    "preview:validate-content": "node scripts/run-preview.mjs payload run scripts/validate-payload-content.ts"
+    "preview:validate-content": "node scripts/run-preview.mjs payload run scripts/validate-payload-content.ts",
+    "production:env:check": "node scripts/check-production-env.mjs",
+    "production:migrate:status": "node scripts/run-production.mjs migrate:status",
+    "production:migrate": "node scripts/run-production.mjs migrate",
+    "production:seed": "node scripts/run-production.mjs run scripts/seed-payload.ts",
+    "production:validate-content": "node scripts/run-production.mjs run scripts/validate-payload-content.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.85.0",
